@@ -54,6 +54,13 @@ export const GET: APIRoute = async ({ site }) => {
     {
       site: origin,
       allpagesJsonUrl: `${origin}/wiki/special/allpages.json`,
+      // categoriesJsonUrl / statisticsJsonUrl cross-link the sibling special
+      // indexes that summarize the same corpus by topic and by site-wide counts.
+      // allpages.json is the article directory hub; exposing those companion
+      // endpoints lets a consumer navigate to the category index and the site
+      // statistics document without reconstructing special-route paths.
+      categoriesJsonUrl: `${origin}/wiki/special/categories.json`,
+      statisticsJsonUrl: `${origin}/wiki/special/statistics.json`,
       count: articles.length,
       articles: articles.map((article) => {
         const history = historyForSlug(article.slug);

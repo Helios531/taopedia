@@ -188,6 +188,16 @@ assert.equal(
   `${data.site}/wiki/special/allpages.json`,
   'allpagesJsonUrl must be the canonical self-URL of the endpoint',
 );
+assert.equal(
+  data.categoriesJsonUrl,
+  `${data.site}/wiki/special/categories.json`,
+  'categoriesJsonUrl must be the canonical sibling categories.json URL',
+);
+assert.equal(
+  data.statisticsJsonUrl,
+  `${data.site}/wiki/special/statistics.json`,
+  'statisticsJsonUrl must be the canonical sibling statistics.json URL',
+);
 assert.ok(typeof data.count === 'number' && data.count > 0, `count must be a positive number (got ${data.count})`);
 assert.equal(data.count, data.articles.length, 'count must equal articles.length');
 assert.ok(Array.isArray(data.articles), 'articles must be an array');
