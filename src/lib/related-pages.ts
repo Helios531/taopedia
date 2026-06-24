@@ -78,6 +78,7 @@ export interface ArticleRelatedPagesDocument {
   lastEdited: string | null;
   url: string;
   relatedUrl: string;
+  relatedJsonUrl: string;
   historyUrl: string;
   historyJsonUrl: string;
   backlinksUrl: string;
@@ -118,6 +119,7 @@ export interface ArticleRelatedPagesDocument {
     bibtexUrl: string;
     referencesUrl: string;
     relatedUrl: string;
+    relatedJsonUrl: string;
     tocJsonUrl: string;
     imageUrl: string;
   }>;
@@ -254,6 +256,7 @@ export function buildArticleRelatedPages({
     lastEdited: lastEdited ?? null,
     url: `${origin}/wiki/${slug}/`,
     relatedUrl: `${origin}/wiki/${slug}/related.json`,
+    relatedJsonUrl: `${origin}/wiki/${slug}/related.json`,
     historyUrl: `${origin}/wiki/${slug}/history/`,
     historyJsonUrl: `${origin}/wiki/${slug}/history.json`,
     backlinksUrl: `${origin}/wiki/${slug}/backlinks/`,
@@ -296,6 +299,7 @@ export function buildArticleRelatedPages({
       bibtexUrl: `${origin}/wiki/${entry.slug}/cite.bib`,
       referencesUrl: `${origin}/wiki/${entry.slug}/references.json`,
       relatedUrl: `${origin}/wiki/${entry.slug}/related.json`,
+      relatedJsonUrl: `${origin}/wiki/${entry.slug}/related.json`,
       tocJsonUrl: `${origin}/wiki/${entry.slug}/toc.json`,
       imageUrl: `${origin}/og/${entry.slug}.png`,
     })),

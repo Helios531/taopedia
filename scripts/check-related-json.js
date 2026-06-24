@@ -113,6 +113,7 @@ const sectionCountOf = (slug) => {
   assert.equal(doc.lastEdited, '2024-06-01T00:00:00.000Z', 'builder: lastEdited field threaded verbatim');
   assert.equal(doc.url, `${ORIGIN}/wiki/source/`, 'builder: url field');
   assert.equal(doc.relatedUrl, `${ORIGIN}/wiki/source/related.json`, 'builder: relatedUrl self field');
+  assert.equal(doc.relatedJsonUrl, `${ORIGIN}/wiki/source/related.json`, 'builder: relatedJsonUrl self alias');
   assert.equal(doc.historyUrl, `${ORIGIN}/wiki/source/history/`, 'builder: historyUrl cross-link');
   assert.equal(doc.historyJsonUrl, `${ORIGIN}/wiki/source/history.json`, 'builder: historyJsonUrl cross-link');
   assert.equal(doc.backlinksUrl, `${ORIGIN}/wiki/source/backlinks/`, 'builder: backlinksUrl cross-link');
@@ -155,6 +156,7 @@ const sectionCountOf = (slug) => {
         bibtexUrl: `${ORIGIN}/wiki/alpha/cite.bib`,
         referencesUrl: `${ORIGIN}/wiki/alpha/references.json`,
         relatedUrl: `${ORIGIN}/wiki/alpha/related.json`,
+        relatedJsonUrl: `${ORIGIN}/wiki/alpha/related.json`,
         infoJsonUrl: `${ORIGIN}/wiki/alpha/info.json`,
         tocJsonUrl: `${ORIGIN}/wiki/alpha/toc.json`,
         imageUrl: `${ORIGIN}/og/alpha.png`,
@@ -185,6 +187,7 @@ const sectionCountOf = (slug) => {
         bibtexUrl: `${ORIGIN}/wiki/gamma/cite.bib`,
         referencesUrl: `${ORIGIN}/wiki/gamma/references.json`,
         relatedUrl: `${ORIGIN}/wiki/gamma/related.json`,
+        relatedJsonUrl: `${ORIGIN}/wiki/gamma/related.json`,
         infoJsonUrl: `${ORIGIN}/wiki/gamma/info.json`,
         tocJsonUrl: `${ORIGIN}/wiki/gamma/toc.json`,
         imageUrl: `${ORIGIN}/og/gamma.png`,
@@ -215,6 +218,7 @@ const sectionCountOf = (slug) => {
         bibtexUrl: `${ORIGIN}/wiki/delta/cite.bib`,
         referencesUrl: `${ORIGIN}/wiki/delta/references.json`,
         relatedUrl: `${ORIGIN}/wiki/delta/related.json`,
+        relatedJsonUrl: `${ORIGIN}/wiki/delta/related.json`,
         infoJsonUrl: `${ORIGIN}/wiki/delta/info.json`,
         tocJsonUrl: `${ORIGIN}/wiki/delta/toc.json`,
         imageUrl: `${ORIGIN}/og/delta.png`,
@@ -435,6 +439,12 @@ for (const slug of articleSlugs) {
     `${ORIGIN}/wiki/${slug}/related.json`,
     `${slug}: related.json must expose its own canonical relatedUrl`,
   );
+  assert.equal(
+    doc.relatedJsonUrl,
+    `${ORIGIN}/wiki/${slug}/related.json`,
+    `${slug}: related.json must expose its own canonical relatedJsonUrl alias`,
+  );
+  assert.equal(doc.relatedJsonUrl, doc.relatedUrl, `${slug}: relatedJsonUrl must match the back-compat relatedUrl field`);
   // historyUrl / historyJsonUrl cross-link to the article's own revision history,
   // the same self cross-link cite.json / backlinks.json / history.json /
   // references.json envelopes expose, so a consumer of related.json can reach it too.
@@ -525,6 +535,8 @@ for (const slug of articleSlugs) {
     assert.equal(entry.bibtexUrl, `${ORIGIN}/wiki/${entry.slug}/cite.bib`, `${slug}: every related entry bibtexUrl must be canonical`);
     assert.equal(entry.referencesUrl, `${ORIGIN}/wiki/${entry.slug}/references.json`, `${slug}: every related entry referencesUrl must be canonical`);
     assert.equal(entry.relatedUrl, `${ORIGIN}/wiki/${entry.slug}/related.json`, `${slug}: every related entry relatedUrl must be canonical`);
+    assert.equal(entry.relatedJsonUrl, `${ORIGIN}/wiki/${entry.slug}/related.json`, `${slug}: every related entry relatedJsonUrl must be canonical`);
+    assert.equal(entry.relatedJsonUrl, entry.relatedUrl, `${slug}: every related entry relatedJsonUrl must match relatedUrl`);
     assert.equal(entry.infoJsonUrl, `${ORIGIN}/wiki/${entry.slug}/info.json`, `${slug}: every related entry infoJsonUrl must be canonical`);
     assert.equal(entry.tocJsonUrl, `${ORIGIN}/wiki/${entry.slug}/toc.json`, `${slug}: every related entry tocJsonUrl must be canonical`);
     assert.equal(entry.imageUrl, `${ORIGIN}/og/${entry.slug}.png`, `${slug}: every related entry imageUrl must be the related article's OG share-card URL`);
